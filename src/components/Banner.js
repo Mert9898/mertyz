@@ -6,18 +6,22 @@ import 'animate.css';
 import TrackVisibility from 'react-on-screen';
 
 export const Banner = () => {
-  const [loopNum, setLoopNum] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [text, setText] = useState('');
-  const [delta, setDelta] = useState(300 - Math.random() * 100);
-  const [index, setIndex] = useState(1);
+  const [loopNum, setLoopNum] = useState(0);//if loop reaches 3 return back delete
+  const [isDeleting, setIsDeleting] = useState(false);//Words are not deleting as initial
+  const [text, setText] = useState('');//Texts are initially empty
+  const [delta, setDelta] = useState(300 - Math.random() * 100);//interval to tick function,writing and deleting a word
+  const [index, setIndex] = useState(1);//Word state,which word from the toRotate list
   const toRotate = [ "Web Developer", "Web Designer", "UI/UX Designer" ];
   const period = 2000;
 
   useEffect(() => {
     let ticker = setInterval(() => {
       tick();
-    }, delta);
+    }, delta);/*Initial Setup: Sets up an interval that calls the tick function every delta milliseconds to update the text state.
+    Cleanup: Ensures that the interval is cleared when the component is unmounted or text changes, avoiding potential memory leaks.
+    Dependencies: The effect depends on text, meaning it will re-run whenever text changes, adapting the animation to reflect the current state.
+    If text changes (e.g., due to typing or deleting), the useEffect hook will clear the existing interval and set a new one with the updated delta.
+    This ensures that the animation is responsive to changes in text, maintaining the correct timing for the typing/deleting effect.*/ 
 
     return () => { clearInterval(ticker) };
   }, [text])

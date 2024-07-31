@@ -11,29 +11,29 @@ import {
 
 export const NavBar = () => {
 
-  const [activeLink, setActiveLink] = useState('home');
-  const [scrolled, setScrolled] = useState(false);
+  const [activeLink, setActiveLink] = useState('home'); //actvelink component of navbar is home by default it means current link is home
+  const [scrolled, setScrolled] = useState(false);//scrolled component is false by default
 
-  useEffect(() => {
-    const onScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
+  useEffect(() => {//if an effect occurs this function listens effect and executes below code
+    const onScroll = () => {//if scroll happens onscroll callback worked as said before
+      if (window.scrollY > 50) {//if pixels scrolled are greater than 50 pixels meaning 1 rotation downwards 
+        setScrolled(true);//Setscrolled is true
       } else {
-        setScrolled(false);
+        setScrolled(false);//Else setscrolled is false
       }
     }
 
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll);//add window an event listener which means if an event occurs named scroll,it calls onscroll callback function
 
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);//remove eventlistener after each activity after scrolling
   }, [])
 
-  const onUpdateActiveLink = (value) => {
+  const onUpdateActiveLink = (value) => { //setter function that sets the active link to value if there is update that the user clicks on "value" to go to value.
     setActiveLink(value);
   }
 
-  return (
-    <Router>
+  return ( //This part is navbar's main part
+    <Router> 
       <Navbar expand="md" className={scrolled ? "scrolled" : ""}>
         <Container>
           <Navbar.Brand href="/">
@@ -61,6 +61,6 @@ export const NavBar = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    </Router>
+    </Router>//Provides routing
   )
 }
